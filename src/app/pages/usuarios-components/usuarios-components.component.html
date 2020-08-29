@@ -1,0 +1,121 @@
+<router-outlet></router-outlet>
+<div style="text-align:left">
+    <div class="subtitle-usuarios">
+        <div>
+            <h4>
+                Usuarios existentes
+            </h4>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary mr-6" (click)="open(content)">Crear</button>
+        </div>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Indentificación (C.C)</th>
+                <th scope="col">Rol asociado</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of collection.data | paginate: config">
+                <th scope="row">{{item.nombres}}</th>
+                <td>{{item.apellidos}}</td>
+                <td>{{item.id}}</td>
+                <td>{{item.rol}}</td>
+                <td>{{item.estado}}</td>
+                <td>{{item.telefono}}</td>
+                <td>{{item.correo}}</td>
+                <td>
+                    <button class="btn btn-secondary" (click)="openUpdate(content,item)">Editar</button>
+                    <button class="btn btn-danger" (click)="delete(item)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+</div>
+
+
+
+<div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+                Agregar nuevo usuario
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+                <span aria-hidden="true">
+                    ×
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <form [formGroup]="usuarioForm" (ngSubmit)="addItem()" novalidate>
+
+                <div class="column">
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <input type="text" formControlName="nombres" class="form-control" maxlength="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Identificación (C.C)</label>
+                        <input type="number" formControlName="id" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <input type="text" class="form-control" formControlName="estado" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" formControlName="telefono" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" class="form-control" formControlName="apellidos" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rol asociado</label>
+                        <input type="text" formControlName="rol" class="form-control" maxlength="20" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" formControlName="contrasena" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" formControlName="correo" class="form-control" required>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="update()" *ngIf="updateUsuario" >Actualizar</button>
+            <button type="button" class="btn btn-success" (click)="save()" *ngIf="!updateUsuario">Aceptar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+                Cancelar
+            </button>
+        </div>
+    </ng-template>
+
+</div>

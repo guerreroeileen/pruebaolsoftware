@@ -1,0 +1,23 @@
+.subtitle-usuarios{
+    display: inline-flex;
+    max-block-size: inherit;
+}
+.row{
+    position: absolute;
+    right: 0px;
+    padding-right: 10%;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.modal-body:after {
+    content: "";
+    display: table;
+    clear: both;
+   
+  }
+

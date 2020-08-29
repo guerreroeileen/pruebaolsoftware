@@ -21,6 +21,11 @@
       }
     }
   }
+  .row{
+    position: absolute;
+    right: 0px;
+    padding-right: 10%;
+}
 
   @include media-breakpoint-down(is) {
     .socials {
