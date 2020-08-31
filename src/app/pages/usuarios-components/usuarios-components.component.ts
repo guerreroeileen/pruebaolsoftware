@@ -42,7 +42,7 @@ export class UsuariosComponentsComponent implements OnInit {
 
     //cargando datos
     this.firebaseService.getAll().subscribe(resp => {
-      this.collection.data = resp.map(e => {
+      this.collection.data = resp.map((e: any) => {
         return {
           nombres: e.payload.doc.data().nombres,
           apellidos: e.payload.doc.data().apellidos,
