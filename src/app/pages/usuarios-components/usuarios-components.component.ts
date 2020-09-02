@@ -3,6 +3,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FirebaseService } from './../../services/firebase.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'ngx-usuarios-components',
@@ -15,7 +16,14 @@ export class UsuariosComponentsComponent implements OnInit {
   usuarioForm: FormGroup;
   config: any;
   updateUsuario: boolean;
+  idFirebaseActual = '';
   collection = { count: 3, data: [] };
+
+  /**
+   * valores de rol y estado
+   */
+  roles = [ {id:1,name:"administrador"},{id:2,name:"conductor"},{id:3,name:"recorector"}];
+  estados = [ {id:'A',name:"activo"},{id:'I',name:"inactivo"}];
 
   ngOnInit(): void {
 
@@ -74,9 +82,8 @@ export class UsuariosComponentsComponent implements OnInit {
    */
   save(): void {
     this.firebaseService.create(this.usuarioForm.value).then(resp => {
-      console.log(resp)
-      this.collection.data.push(this.usuarioForm.value);
-      this.usuarioForm.reset;
+      this.usuarioForm.reset();
+      this.modalService.dismissAll();
     }).catch(error => {
       console.error(error)
     })
@@ -89,19 +96,26 @@ export class UsuariosComponentsComponent implements OnInit {
    */
   delete(item): void {
     this.firebaseService.delete(item).then(resp => {
-      this.collection.data.pop(item);
     }).catch(error => {
       console.error(error)
     })
 
   }
 
-  update(item):void{
-    this.firebaseService.update(item).then(resp=>{
+  /**
+   * Actualizar un usuario
+   * @param item usuario a actualizar
+   */
+  update(): void {  
+    if (!isNullOrUndefined(this.idFirebaseActual)) {
+      this.firebaseService.update(this.usuarioForm.value, this.idFirebaseActual).then(resp => {
+        this.usuarioForm.reset();
+        this.modalService.dismissAll();
+      }).catch(error => {
+        console.error(error);
+      });
+    }
 
-    }).catch(error=>{
-      console.error(error);
-    })
   }
 
   pageChanged(event) {
@@ -121,7 +135,8 @@ export class UsuariosComponentsComponent implements OnInit {
 
 
   openUpdate(content, item) {
-    this.updateUsuario=true;
+    this.updateUsuario = true;
+    this.idFirebaseActual = item.idFirebase;
 
     this.usuarioForm.setValue({
       nombres: item.nombres,

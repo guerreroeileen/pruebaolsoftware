@@ -34,8 +34,8 @@ export class FirebaseService {
    * 
    * @param usuario actualizar un usuario
    */
-  update(usuario: any) {
-    return this.firestore.collection('usuarios').doc(usuario.idFirebase).update(usuario);
+  update(usuario: any, idFirebase:string) {
+    return this.firestore.collection('usuarios').doc(idFirebase).update(usuario);
   }
 
   /**

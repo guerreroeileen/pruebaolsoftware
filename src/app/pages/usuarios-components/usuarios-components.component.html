@@ -26,7 +26,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of collection.data | paginate: config">
-                <th scope="row">{{item.nombres}}</th>
+                <td scope="row">{{item.nombres}}</td>
                 <td>{{item.apellidos}}</td>
                 <td>{{item.id}}</td>
                 <td>{{item.rol}}</td>
@@ -68,17 +68,38 @@
                         <label>Nombres</label>
                         <input type="text" formControlName="nombres" class="form-control" maxlength="20" required>
                     </div>
+                    <div *ngIf="usuarioForm.get('nombres').hasError('required') && (usuarioForm.get('nombres').dirty || usuarioForm.get('nombres').touched)"
+                        class="alert alert-danger">
+                        Nombre is required.
+                    </div>
                     <div class="form-group">
                         <label>Identificación (C.C)</label>
                         <input type="number" formControlName="id" class="form-control" required>
                     </div>
+                    <div *ngIf="usuarioForm.get('id').hasError('required') && (usuarioForm.get('id').dirty || usuarioForm.get('id').touched)"
+                        class="alert alert-danger">
+                        CC is required.
+                    </div>
+
+
+
                     <div class="form-group">
                         <label>Estado</label>
-                        <input type="text" class="form-control" formControlName="estado" maxlength="50" required>
+                        <select name="estado" id="estado" formControlName="estado" class="form-control">
+                            <option [value]="item.id" *ngFor="let item of estados">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="usuarioForm.get('estado').hasError('required') && (usuarioForm.get('estado').dirty || usuarioForm.get('estado').touched)"
+                        class="alert alert-danger">
+                        Estado is required.
                     </div>
                     <div class="form-group">
                         <label>Teléfono</label>
                         <input type="text" formControlName="telefono" class="form-control" required>
+                    </div>
+                    <div *ngIf="usuarioForm.get('telefono').hasError('required') && (usuarioForm.get('telefono').dirty || usuarioForm.get('telefono').touched)"
+                        class="alert alert-danger">
+                        Teléfono is required.
                     </div>
                 </div>
 
@@ -87,10 +108,21 @@
                         <label>Apellidos</label>
                         <input type="text" class="form-control" formControlName="apellidos" maxlength="50" required>
                     </div>
+                    <div *ngIf="usuarioForm.get('apellidos').hasError('required') && (usuarioForm.get('apellidos').dirty || usuarioForm.get('apellidos').touched)"
+                        class="alert alert-danger">
+                        Apellidos is required.
+                    </div>
 
                     <div class="form-group">
                         <label>Rol asociado</label>
-                        <input type="text" formControlName="rol" class="form-control" maxlength="20" required>
+
+                        <select name="rol" id="rol" formControlName="rol" class="form-control">
+                            <option [value]="item.id" *ngFor="let item of roles">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="usuarioForm.get('rol').hasError('required') && (usuarioForm.get('rol').dirty || usuarioForm.get('rol').touched)"
+                        class="alert alert-danger">
+                        Rol is required.
                     </div>
 
                     <div class="form-group">
@@ -98,9 +130,18 @@
                         <input type="password" formControlName="contrasena" class="form-control" required>
                     </div>
 
+                    <div *ngIf="usuarioForm.get('contrasena').hasError('required') && (usuarioForm.get('contrasena').dirty || usuarioForm.get('contrasena').touched)"
+                        class="alert alert-danger">
+                        Contraseña is required.
+                    </div>
+
                     <div class="form-group">
                         <label>Correo electrónico</label>
                         <input type="email" formControlName="correo" class="form-control" required>
+                    </div>
+                    <div *ngIf="usuarioForm.get('correo').hasError('required') && (usuarioForm.get('correo').dirty || usuarioForm.get('correo').touched)"
+                        class="alert alert-danger">
+                        Correo is required.
                     </div>
                 </div>
 
@@ -110,7 +151,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="update()" *ngIf="updateUsuario" >Actualizar</button>
+            <button type="button" class="btn btn-success" (click)="update()" *ngIf="updateUsuario">Actualizar</button>
             <button type="button" class="btn btn-success" (click)="save()" *ngIf="!updateUsuario">Aceptar</button>
             <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
                 Cancelar
