@@ -1,5 +1,7 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { HomeComponent } from './home/home.component';
+
 import {
   NbAuthComponent,
   NbLoginComponent,
@@ -10,6 +12,11 @@ import {
 } from '@nebular/auth';
 
 export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module')
