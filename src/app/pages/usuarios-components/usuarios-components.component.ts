@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from './../../services/firebase.service';
 import { isNullOrUndefined } from 'util';
 
@@ -38,14 +38,14 @@ export class UsuariosComponentsComponent implements OnInit {
 
     //formulario para crear un nuevo usuario
     this.usuarioForm = this.fb.group({
-      nombres: [''],
-      apellidos: [''],
-      id: [''],
-      rol: [''],
-      estado: [''],
-      contrasena: [''],
-      telefono: [''],
-      correo: [''],
+      nombres: ['', [Validators.required] ],
+      apellidos: ['',[Validators.required]],
+      id: ['',[Validators.required]],
+      rol: ['',[Validators.required]],
+      estado: ['',[Validators.required]],
+      contrasena: ['',[Validators.required]],
+      telefono: ['',[Validators.required]],
+      correo: ['',[Validators.required, Validators.email]],
     });
 
     //cargando datos

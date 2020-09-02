@@ -2,9 +2,13 @@
 <div style="text-align:left">
     <div class="subtitle-usuarios">
         <div>
-            <h4>
-                Usuarios existentes
-            </h4>
+            <h5>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                </svg> Usuarios existentes
+            </h5>
         </div>
         <div class="row">
             <button type="button" class="btn btn-primary mr-6" (click)="open(content)">Crear</button>
@@ -34,8 +38,23 @@
                 <td>{{item.telefono}}</td>
                 <td>{{item.correo}}</td>
                 <td>
-                    <button class="btn btn-secondary" (click)="openUpdate(content,item)">Editar</button>
-                    <button class="btn btn-danger" (click)="delete(item)">Eliminar</button>
+                    <button class="btn btn-secondary" (click)="openUpdate(content,item)">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                        </svg>
+                    </button>
+                    <button class="btn btn-danger" (click)="delete(item)">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                            <path fill-rule="evenodd"
+                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                        </svg>
+                    </button>
+
                 </td>
             </tr>
         </tbody>
@@ -68,7 +87,7 @@
                         <label>Nombres</label>
                         <input type="text" formControlName="nombres" class="form-control" maxlength="20" required>
                     </div>
-                    <div *ngIf="usuarioForm.get('nombres').hasError('required') && (usuarioForm.get('nombres').dirty || usuarioForm.get('nombres').touched)"
+                    <div *ngIf="(usuarioForm.get('nombres').hasError('required')|| usuarioForm.get('nombres').invalid)&& (usuarioForm.get('nombres').dirty || usuarioForm.get('nombres').touched)"
                         class="alert alert-danger">
                         Nombre is required.
                     </div>
@@ -76,12 +95,10 @@
                         <label>Identificación (C.C)</label>
                         <input type="number" formControlName="id" class="form-control" required>
                     </div>
-                    <div *ngIf="usuarioForm.get('id').hasError('required') && (usuarioForm.get('id').dirty || usuarioForm.get('id').touched)"
+                    <div *ngIf="(usuarioForm.get('id').hasError('required')|| usuarioForm.get('id').invalid)&& (usuarioForm.get('id').dirty || usuarioForm.get('id').touched)"
                         class="alert alert-danger">
                         CC is required.
                     </div>
-
-
 
                     <div class="form-group">
                         <label>Estado</label>
@@ -89,17 +106,24 @@
                             <option [value]="item.id" *ngFor="let item of estados">{{item.name}}</option>
                         </select>
                     </div>
-                    <div *ngIf="usuarioForm.get('estado').hasError('required') && (usuarioForm.get('estado').dirty || usuarioForm.get('estado').touched)"
+                    <div *ngIf="(usuarioForm.get('estado').hasError('required')|| usuarioForm.get('estado').invalid)&& (usuarioForm.get('estado').dirty || usuarioForm.get('estado').touched)"
                         class="alert alert-danger">
                         Estado is required.
                     </div>
                     <div class="form-group">
                         <label>Teléfono</label>
-                        <input type="text" formControlName="telefono" class="form-control" required>
+                        <input type="text" formControlName="telefono" class="form-control" required maxlength="10">
                     </div>
-                    <div *ngIf="usuarioForm.get('telefono').hasError('required') && (usuarioForm.get('telefono').dirty || usuarioForm.get('telefono').touched)"
+                    <div *ngIf="(usuarioForm.get('telefono').hasError('required')|| usuarioForm.get('telefono').invalid) && (usuarioForm.get('telefono').dirty || usuarioForm.get('telefono').touched)"
                         class="alert alert-danger">
                         Teléfono is required.
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" (click)="update()"
+                            *ngIf="updateUsuario">Actualizar</button>
+                        <button type="button" class="btn btn-success" [disabled]="usuarioForm.invalid" (click)="save()"
+                            *ngIf="!updateUsuario">Aceptar</button>
                     </div>
                 </div>
 
@@ -108,7 +132,7 @@
                         <label>Apellidos</label>
                         <input type="text" class="form-control" formControlName="apellidos" maxlength="50" required>
                     </div>
-                    <div *ngIf="usuarioForm.get('apellidos').hasError('required') && (usuarioForm.get('apellidos').dirty || usuarioForm.get('apellidos').touched)"
+                    <div *ngIf="(usuarioForm.get('apellidos').hasError('required') || usuarioForm.get('apellidos').invalid )&& (usuarioForm.get('apellidos').dirty || usuarioForm.get('apellidos').touched)"
                         class="alert alert-danger">
                         Apellidos is required.
                     </div>
@@ -120,7 +144,7 @@
                             <option [value]="item.id" *ngFor="let item of roles">{{item.name}}</option>
                         </select>
                     </div>
-                    <div *ngIf="usuarioForm.get('rol').hasError('required') && (usuarioForm.get('rol').dirty || usuarioForm.get('rol').touched)"
+                    <div *ngIf="(usuarioForm.get('rol').hasError('required') || usuarioForm.get('rol').invalid ) && (usuarioForm.get('rol').dirty || usuarioForm.get('rol').touched)"
                         class="alert alert-danger">
                         Rol is required.
                     </div>
@@ -130,7 +154,7 @@
                         <input type="password" formControlName="contrasena" class="form-control" required>
                     </div>
 
-                    <div *ngIf="usuarioForm.get('contrasena').hasError('required') && (usuarioForm.get('contrasena').dirty || usuarioForm.get('contrasena').touched)"
+                    <div *ngIf="(usuarioForm.get('contrasena').hasError('required') || usuarioForm.get('contrasena').invalid )&& (usuarioForm.get('contrasena').dirty || usuarioForm.get('contrasena').touched)"
                         class="alert alert-danger">
                         Contraseña is required.
                     </div>
@@ -139,10 +163,18 @@
                         <label>Correo electrónico</label>
                         <input type="email" formControlName="correo" class="form-control" required>
                     </div>
-                    <div *ngIf="usuarioForm.get('correo').hasError('required') && (usuarioForm.get('correo').dirty || usuarioForm.get('correo').touched)"
+                    <div *ngIf="(usuarioForm.get('correo').hasError('required') || usuarioForm.get('correo').invalid ) && (usuarioForm.get('correo').dirty || usuarioForm.get('correo').touched)"
                         class="alert alert-danger">
                         Correo is required.
                     </div>
+
+
+                    <div  class="form-group">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+                            Cancelar
+                        </button>
+                    </div>
+
                 </div>
 
             </form>
@@ -151,11 +183,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="update()" *ngIf="updateUsuario">Actualizar</button>
-            <button type="button" class="btn btn-success" (click)="save()" *ngIf="!updateUsuario">Aceptar</button>
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
-                Cancelar
-            </button>
+
         </div>
     </ng-template>
 
