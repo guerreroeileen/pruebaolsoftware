@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,16 +17,18 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    
+
 
   }
 
 
   login(): void {
-console.log(this.username +", " + this.password)
+    console.log(this.username + ", " + this.password);
+    this.router.navigate(['/pages']);
   }
 
 }

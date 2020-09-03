@@ -6,6 +6,8 @@
     max-width: 400px;
     margin: 2em auto;
     text-align: center;
+    border-radius: 20px;
+    padding: 5%;
 }
   
 .mat-form-field {
@@ -15,12 +17,24 @@
 .divInfoHome{
     padding-left: 10%;
     padding-right: 10%;
+    color: white !important;
 }
 
 .homeContainer{
-  padding: 15%;
+  padding-left: 15%;
+  padding-right: 5%;
+  padding-top: 15%;
+  padding-bottom: 15%;
+
   display:flex;
   flex-wrap:wrap;
+  background-repeat: no-repeat;
+  
+
+  background-image: url("./../../assets/images/camera3.jpg");
+  background-size: 120%;
+  border-bottom-left-radius: 239% 590%;
+  border-bottom-right-radius: 569% 800%;
 }
 
 .inner{
